@@ -1,0 +1,15 @@
+pipeline {
+    agent any
+    stages {
+        stage ("git") {
+            steps {  git 'https://github.com/devopsnanda/mymaven1.git' }
+        }
+        stage ("bulid") {
+            steps {  bat label: '', script: 'mvn clean'
+            bat label: '', script: 'mvn install'  }
+        }
+        stage ("depoly") {
+            steps { bat label: '', script: 'xcopy /y "C:\\Program Files (x86)\\Jenkins\\workspace\\jenkinns\\multi-module\\webapp\\target\\webapp.war" "C:\\Program Files\\Apache Software Foundation\\Tomcat 8.5\\webapps"'  }
+    }
+} 
+}
